@@ -4,9 +4,9 @@ import customtkinter as ctk
 import search
 import random
 import math
-import sys
-sys.path.insert(1,'/Users/Aniket/Documents/GitHub/munificus/scrapers')
+from test import test,ttest
 from flipkart import flipkart
+from amazon import amazon
 
 root = ctk.CTk()
 root.geometry('1200x800')
@@ -32,16 +32,21 @@ def rating_stars(n,c):
 def get_input():
     # web scraping file call goes here
     input='laptop' if item_entry.get() is None else item_entry.get()
+    amzn=amazon(input)[0:6]
     flip=flipkart(input)[0:6]
-    print(flip)
+    # flip=test('lal')
+    # amzn=ttest('lal')
+    results=flip+amzn
+    results=sorted(results,key=lambda x:x[2])
+
     for i in range(len(companies)):
         photos.append(ctk.CTkLabel(root,image=
-                                   ImageTk.PhotoImage(Image.open(f"assets/{companies[i]}.png")
+                                   ImageTk.PhotoImage(Image.open(f"assets/{companies[results[i][0]]}.png")
                                                     .resize((200, 200))),text=''))
-        names.append(ctk.CTkLabel(root,text=f"{flip[i][0]}",width=30))
-        rating.append(ctk.CTkLabel(root,text=f"Rating: {flip[i][2]}",width=30))
-        prices.append(ctk.CTkLabel(root,text=f"Price: {flip[i][1]}",width=30))
-        delivery_date.append(ctk.CTkLabel(root,text=f"Delivery Date: {flip[i][3]}"))
+        names.append(ctk.CTkLabel(root,text=f"{results[i][1]}",width=30))
+        rating.append(ctk.CTkLabel(root,text=f"Rating: {results[i][3]}",width=30))
+        prices.append(ctk.CTkLabel(root,text=f"Price: {results[i][2]}",width=30))
+        delivery_date.append(ctk.CTkLabel(root,text=f"Delivery Date: {results[i][4]}"))
         photos[-1].place(x=50+(100*i)+(i*200),y=350)
         names[-1].place(x=50+(100*i)+(i*200),y=550)
         rating[-1].place(x=50+(100*i)+(i*200),y=600)
