@@ -27,5 +27,4 @@ def flipkart(input):
 
     return results
 
-#    product_name = soup.find("span",{"class":"B_NuCI"}).get_text()
-# <span class="B_NuCI">
+
