@@ -7,11 +7,24 @@ import math
 from test import test,ttest
 from flipkart import flipkart
 from amazon import amazon
+from excel_export import write_product_data_to_excel
+from tkinter import messagebox
 
 root = ctk.CTk()
 root.geometry('1200x800')
 root.title('Munificus')
 root.resizable(0,0)
+
+def ham():
+    printer_img=ctk.CTkImage(light_image=Image.open('assets/printer.png'),
+                        size=(32,32))
+    printer_button=ctk.CTkButton(root,image=printer_img,text='',width=32,command=csv)
+    printer_button.place(x=10,y=60)
+
+def csv():
+    write_product_data_to_excel([element[1:] for element in amzn], [element[1:] for element in flip], "output_file.xlsx")
+    messagebox.showinfo('Success!','Written successfully!\nRefer to output_file.csv')
+
 
 def rating_stars(n,c):
     star = ImageTk.PhotoImage(Image.open("assets/star.png").resize((20, 20)))
@@ -30,6 +43,7 @@ def rating_stars(n,c):
         print('plac')
 
 def get_input():
+    global amzn,flip
     # web scraping file call goes here
     input='laptop' if item_entry.get() is None else item_entry.get()
     amzn=amazon(input)[0:6]
@@ -64,8 +78,8 @@ logo_img = ImageTk.PhotoImage(Image.open("assets/properdark munificus.png").resi
 logo_label = Label(root, image=logo_img)
 logo_label.pack(padx=100,pady=20)
 
-ham_img=ctk.CTkImage(light_image=Image.open('assets/hamburger.png'))
-ham_button=ctk.CTkButton(root,image=ham_img,text='',width=32,bg_color='#242424')
+ham_img=ctk.CTkImage(light_image=Image.open('assets/hamburger.png'),size=(32,32))
+ham_button=ctk.CTkButton(root,image=ham_img,text='',width=32,bg_color='#242424',command=ham)
 ham_button.place(x=10,y=10)
 
 search_img=ctk.CTkImage(light_image=Image.open('assets/seacher.png'),
