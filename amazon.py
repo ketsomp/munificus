@@ -51,4 +51,4 @@ def amazon(item):
             l.append(extractor(data[i]))
         except:
             print("Amazon Fetch Error!")
-    return l
+        return l
