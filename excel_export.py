@@ -84,7 +84,3 @@ def write_product_data_to_excel(amazon_data, flip_data, file_name):
     workbook.close()
     print("Excel file written successfully!")
 
-# if __name__ == '__main__':
-#     amazon_data = [["Wireless Mouse A", "599", "4.3 stars",None], ["Wireless Mouse B", "595", "3.6 stars",None]]
-#     flip_data = [["Wireless Mouse X", "590", "4.5 stars",None], ["Wireless Mouse Y", "595", "4.2 stars",None]]
-#     write_product_data_to_excel(amazon_data, flip_data, "output_file.xlsx")
