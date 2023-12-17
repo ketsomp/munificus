@@ -1,8 +1,11 @@
+#the following file is a blueprint i have used to make other files, this has the code for amazon in it but after changing values u can use it for any other site
+
+
 from bs4 import BeautifulSoup
 import requests
 
 
-
+results=[]
 item=input("Enter item:") # entering the product name 
 
 #  the following part is user specific
@@ -14,7 +17,6 @@ headers={ "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 # this formatting was done by simply observing url of multiple different searches 
 
 url="https://www.amazon.in/s?k={prod}&crid=6XILPNWGTG75&sprefix=logitech+b170%2Caps%2C409&ref=nb_sb_noss_1".format(prod=item.replace(' ','+'))
-
 
 page = requests.get(url, headers=headers) #pulls apge request
 soup1 = BeautifulSoup(page.content, "html.parser") # pulls data from page 
@@ -51,14 +53,12 @@ def extractor(item):
             ratings='' 
         if delivery==None:
             delivery='' 
-    
+            
     res.append(title.strip())
     res.append(price.strip())
     res.append(ratings.strip())
     res.append(delivery.strip())
     return res
-
-
 # this part basically runs the extractor 5 times to give top 5 search results, is dynamic 
 for i in range(5):
-    print(extractor(data[i]))
+    results.append(extractor(data[i]))
