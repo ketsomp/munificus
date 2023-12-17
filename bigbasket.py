@@ -22,7 +22,7 @@ data=soup1.find_all('li',{'class':"PaginateItems___StyledLi-sc-1yrbjdr-0 dDBqny"
 
 
 # extractor function for all the values we will need 
-def extractor(item):
+def bigbasket(item):
     res=[]
     title=''
     price=''
