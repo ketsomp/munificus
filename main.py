@@ -1,8 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import customtkinter as ctk
-import search
-import random
 import math
 from test import test,ttest
 from flipkart import flipkart
@@ -31,15 +29,23 @@ def rating_stars(n,c):
 
 def get_input():
     # web scraping file call goes here
-    input='laptop' if item_entry.get() is None else item_entry.get()
-    amzn=amazon(input)[0:6]
-    flip=flipkart(input)[0:6]
+    input='laptop' if item_entry.get() is '' else item_entry.get()
+    print('get',item_entry.get())
+    print('input',input)
+    amzn=amazon(input)
+    flip=flipkart(input)
     # flip=test('lal')
     # amzn=ttest('lal')
-    results=flip+amzn
+    if amzn is None:
+        results=flip
+    elif flip is None:
+        results=amzn
+    else:
+        results=flip+amzn
+    print(results)
     results=sorted(results,key=lambda x:x[2])
 
-    for i in range(len(companies)):
+    for i in range(4):
         photos.append(ctk.CTkLabel(root,image=
                                    ImageTk.PhotoImage(Image.open(f"assets/{companies[results[i][0]]}.png")
                                                     .resize((200, 200))),text=''))
@@ -58,7 +64,7 @@ prices=[]
 delivery_date=[]
 rating=[]
 
-companies={0:'Amazon',1:'Flipkart',2:'Ebay',3:'Myntra'}
+companies={0:'Amazon',1:'Flipkart'}
 
 logo_img = ImageTk.PhotoImage(Image.open("assets/properdark munificus.png").resize((200, 200)))
 logo_label = Label(root, image=logo_img)
@@ -70,14 +76,12 @@ ham_button.place(x=10,y=10)
 
 search_img=ctk.CTkImage(light_image=Image.open('assets/seacher.png'),
                         size=(32,32))
-search_button=ctk.CTkButton(root,image=search_img,text='',width=32,command=get_input)
+# search_button=ctk.CTkButton(root,image=search_img,text='',width=32,command=get_input)
+# search_button.place(x=777,y=256)
+search_button=Button(root,text='search',width=32,command=get_input)
 search_button.place(x=777,y=256)
 
 item_entry=ctk.CTkEntry(root,width=335,height=40)
 item_entry.place(x=433,y=255)
-
-item_button=Button(root,width=100,text='Enter',command=get_input) # use ctk.CtkButton at the end, 
-# ctk glitches out on mac so using ttk button for testing
-#item_button.pack(pady=10)
 
 root.mainloop()
