@@ -45,9 +45,10 @@ def amazon(item):
         res.append(ratings.strip().split()[0])
         res.append(delivery.strip())
         return res
+    l=[]
     for i in range(5):
         try:
-            print(extractor(data[i]))
+            l.append(extractor(data[i]))
         except:
             print("Amazon Fetch Error!")
-            break
+    return l
