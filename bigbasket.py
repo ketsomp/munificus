@@ -33,10 +33,12 @@ def bigbasket(item):
         price=''
         ratings=''
         delivery='' 
+        link=''
         try:
             title = item.find('h3',{'class':"block m-0 line-clamp-2 font-regular text-base leading-sm text-darkOnyx-800 pt-0.5 h-full"}).get_text()
             price = item.find('span',{'class':"Label-sc-15v1nk5-0 Pricing___StyledLabel-sc-pldi2d-1 gJxZPQ AypOi"}).get_text()
             ratings=item.find('span',{'class':"Label-sc-15v1nk5-0 gJxZPQ"}).get_text()
+            link= "https://www.bigbasket.com"+ item.a.get("href")
 
         except:
             if title==None:
@@ -46,10 +48,13 @@ def bigbasket(item):
 
             if ratings==None:
                 ratings='' 
+            if link==None:
+                link='' 
         res.append(2)
         res.append(title.strip())
         res.append(price.strip()[1:])
         res.append(ratings.strip())
+        res.append(link.strip())
         res.append(None)
         return res
 
