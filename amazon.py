@@ -21,10 +21,12 @@ def amazon(item):
         price=''
         ratings=''
         delivery='' 
+        link=''
         try:
             title = item.find('span',{'class':"a-size-medium a-color-base a-text-normal"}).get_text()
             price = item.find('span',{'class':"a-price-whole"}).get_text()
             ratings =item.find('span',{'class':"a-icon-alt"}).get_text()
+            link="https://www.amazon.in"+item.a.get("href")
 
             # below part has some issues----------------------
             delivery= item.find('span',{'class':"a-color-base a-text-bold"}).get_text()
@@ -39,11 +41,14 @@ def amazon(item):
                 ratings='' 
             if delivery==None:
                 delivery='' 
+            if link==None:
+                link='' 
         res.append(0) # amazon id
         res.append(title.strip())
         res.append(price.strip())
         res.append(ratings.strip().split()[0])
         res.append(delivery.strip())
+        res.append(link.strip())
         return res
     l=[]
     for i in range(5):
